@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  deploy/local:
+    - docker build -t image-seid-zueinander:latest .
+    - docker run --name seid-page -p 80:80 image-seid-zueinander:latest 
+  deploy/cloud: 
+    cmds:
+      - gcloud builds submit --config cloudbuild.yaml

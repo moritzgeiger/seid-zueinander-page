@@ -1,0 +1,24 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: white; /* White text */
+    background-color: black; /* Black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Recoleta', sans-serif; /* Recoleta font */
+}
+
+.content {
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'Recoleta';
+    src: url('path-to-your-font-files/Recoleta-Regular.woff2') format('woff2'),
+         url('path-to-your-font-files/Recoleta-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

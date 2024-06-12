@@ -12,3 +12,4 @@ task deploy/local
 
 You can start developing the pages in the /static subfolder.
 
+You can find your local website here: https://localhost/

@@ -1,9 +1,29 @@
 version: '3'
 
+
+        # if [[ "${env}" =~ (prod) ]]; then
+
 tasks:
+  install/task:
+    cmds:
+      - brew install go-task
   deploy/local:
-    - docker build -t image-seid-zueinander:latest .
-    - docker run --name seid-page -p 80:80 image-seid-zueinander:latest 
-  deploy/cloud: 
+    vars:
+      CONTAINER_NAME: seid-page
+    cmds:
+      - docker build -t image-seid-zueinander:latest .
+      - export PWD=${pwd}
+      - docker rm -f {{.CONTAINER_NAME}}
+      - >-
+        docker run
+        --name {{.CONTAINER_NAME}}
+        -p 80:80
+        --mount type=bind,source=${PWD}/static,target=/usr/share/nginx/html
+        image-seid-zueinander:latest
+  deploy/cloud:
     cmds:
       - gcloud builds submit --config cloudbuild.yaml
+
+  ssh:
+    cmds:
+      - docker exec -it seid-page sh

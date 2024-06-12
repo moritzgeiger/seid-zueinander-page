@@ -1,18 +1,18 @@
 
 steps:
   - name: gcr.io/cloud-builders/docker
-    args: 
+    args:
       - build
       - -t
       - europe-docker.pkg.dev/${PROJECT_ID}/cr-seid-zueinander-eu/cr-seid-zueinander-eu:latest
       - .
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
+    args:
       - push
       - europe-docker.pkg.dev/${PROJECT_ID}/cr-seid-zueinander-eu/cr-seid-zueinander-eu:latest
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
-    args: 
+    args:
       - run
       - deploy
       - run-seid-zueinander-euwest1
@@ -24,10 +24,14 @@ steps:
       - managed
       - --port
       - '80'
+      - --concurrency
+      - '1'
       - --max-instances
-      - '1'
+      - '5'
       - --cpu
-      - '1'
+      - '0.08'
+      - --memory
+      - 512Mi
       - --allow-unauthenticated
 
 images:
